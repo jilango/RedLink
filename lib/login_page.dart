@@ -1,7 +1,11 @@
+
 import 'package:flutter/material.dart';
-import 'package:redlink/home_page.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:redlink/Colors.dart';
+import 'package:redlink/OTPVerification.dart';
 import 'package:redlink/page_guide.dart';
 import 'fade_animation.dart';
+import 'package:international_phone_input/international_phone_input.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -10,6 +14,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String phoneNumber;
+  String phoneIsoCode = '+91';
+
+  void onPhoneNumberChange(
+      String number, String internationalizedPhoneNumber, String isoCode) {
+    setState(() {
+      phoneNumber = internationalizedPhoneNumber;
+      print(phoneNumber);
+      phoneIsoCode = isoCode;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -24,39 +40,33 @@ class _LoginPageState extends State<LoginPage> {
               child: Stack(
                 children: <Widget>[
                   Positioned(
-                    top: -40,
-                    height: 400,
-                    width: width,
+                    top: 40,
+                    right: 15,
+                    height: 70,
+                    width: 70,
                     child: FadeAnimation(1, Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50) ,bottomRight: Radius.circular(50)),
                           image: DecorationImage(
-                              image: AssetImage('images/bg.png'),
+                              image: AssetImage('images/logo.png'),
                               fit: BoxFit.fill
                           )
                       ),
                     )),
                   ),
                   Positioned(
-                    top: 140,
-                    left: 100,
-                    height: 238,
-                    width: 238,
-                    child:FadeAnimation(1.15, Text("Welcome Back!", style: TextStyle(color: Colors.white.withOpacity(0.9),fontFamily: 'nunito', fontWeight: FontWeight.bold, fontSize: 30),)),
-                  ),
-                  Positioned(
-                    top: 190,
-                    left: 57,
+                    top: 170,
+                    left: 25,
                     height: 270,
-                    width: 300,
+                    width: 350,
                     child: FadeAnimation(1.2, Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50) ,bottomRight: Radius.circular(50)),
                             image: DecorationImage(
-                                image: AssetImage('images/Group 5.png'),
-                                fit: BoxFit.fill
+                                image: AssetImage('images/Signin.png'),
+                                fit: BoxFit.scaleDown
                             )
                         ),
                       ),
@@ -71,102 +81,78 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  //FadeAnimation(1.3, Text("Login", style: TextStyle(color: Color.fromRGBO(49, 39, 79, 1), fontWeight: FontWeight.bold, fontSize: 30),)),
                   SizedBox(height: 10,),
-                  FadeAnimation(1.4, Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromRGBO(245, 35, 35, .3),
-                            blurRadius: 20,
-                            offset: Offset(0, 10),
-                          )
-                        ]
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              border: Border(bottom: BorderSide(
-                                  color: Colors.grey[200]
-                              ))
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Username",
-                                hintStyle: TextStyle(color: Colors.grey)
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: TextField(
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Password",
-                                hintStyle: TextStyle(color: Colors.grey)
-                            ),
-                            obscureText: true,
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-                  SizedBox(height: 20,),
-                  FadeAnimation(1.5, Center(child: Text("Forgot Password?", style: TextStyle(fontSize:15,color: Color(0xFFF52323)),))),
-                  SizedBox(height: 20,),
-                  GestureDetector(
-                    onTap: (){
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return PageGuide();
-                          },
-                        ),
-                      );
-
-                    },
-                    child: FadeAnimation(1.6, Container(
-                      height: 40,
-                      //width: 10000,
-                      margin: EdgeInsets.symmetric(horizontal: 60),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            colors: [Color(0xFFE53033),Color(0xFFFF2E2E) ],
-                            begin: const FractionalOffset(0.5, 0.0),
-                            end: const FractionalOffset(0.0, 0.5),
-                            stops: [0.0, 1.0],
-                            tileMode: TileMode.clamp
-                        ),
-                        borderRadius: BorderRadius.circular(50),
-                        color: Color.fromRGBO(49, 39, 79, 1),
-                      ),
-                      child: Center(
-                        child: Text("Login", style: TextStyle(color: Colors.white),),
-                      ),
-                    )),
+                  FadeAnimation(1.4, Text('Sign in using phone\nnumber',style: GoogleFonts.montserrat(color:kMainRed,fontWeight: FontWeight.w700,fontSize: 22,),),
                   ),
-                  SizedBox(height: 25,),
-                  GestureDetector(
+                  SizedBox(height: 20,),
+                  FadeAnimation(1.5, Text(
+                    "Enter your phone number below",
+                    style: GoogleFonts.montserrat(fontSize: 15, color: kDarkerGrey,fontWeight: FontWeight.w500),
+                  )),
+                  SizedBox(height: 30,),
+                  FadeAnimation(1.6,
+                     InternationalPhoneInput(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: kLightGrey,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(20)),
+                            borderSide:
+                            BorderSide(width: 1, color: kGrey),
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(
+                                width: 1,
+                              )),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(20)),
+                            borderSide: BorderSide(
+                                width: 1, color: kGrey),
+                          ),
+                          hintText: "  Phone Number",
+                          hintStyle: GoogleFonts.montserrat(
+                              fontSize: 12,
+                              color: kDarkGrey,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        onPhoneNumberChange: onPhoneNumberChange,
+                        initialPhoneNumber: phoneNumber,
+                        initialSelection: '+91',
+                        showCountryCodes: true
+                    ),
+                  ),
+                  SizedBox(height: 50,),
+                  FadeAnimation(1.7,
+                     GestureDetector(
                       onTap: (){
-
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return LoginPage();
+                              return OTPVerification(phoneNumber);
                             },
                           ),
                         );
 
                       },
-                      child: FadeAnimation(1.7, Center(child: Text("Don't have an account? Sign up", style: TextStyle(fontSize:15,color: Colors.black),)))),
+                      child: Container(
+                        height: 50,
+                        width: double.infinity,
+                        margin: EdgeInsets.symmetric(horizontal: 0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: kMainRed
+                        ),
+                        child: Center(
+                          child: Text("Send Request", style: TextStyle(color: Colors.white),),
+                        ),
+                      )),
+                  ),
+                  SizedBox(height: 25,),
                 ],
               ),
             )

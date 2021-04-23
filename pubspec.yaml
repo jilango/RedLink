@@ -33,6 +33,10 @@ dependencies:
   shimmer: ^1.0.1
   custom_navigation_bar:
   curved_navigation_bar: ^0.3.4
+  carousel_slider: ^2.3.1
+  google_fonts: any
+  international_phone_input: ^1.0.4
+  pinput: ^0.2.6
 dev_dependencies:
   flutter_test:
     sdk: flutter

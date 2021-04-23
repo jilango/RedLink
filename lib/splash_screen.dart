@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redlink/Onboarding.dart';
 import 'dart:async';
 import 'package:shimmer/shimmer.dart';
 import 'login_page.dart';
@@ -37,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void _navigateToHome(){
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-            builder: (BuildContext context) => LoginPage()
+            builder: (BuildContext context) => OnBoarding()
         )
     );
   }
@@ -45,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void _navigateToLogin(){
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-            builder: (BuildContext context) => LoginPage()
+            builder: (BuildContext context) => OnBoarding()
         )
     );
   }
@@ -56,36 +57,38 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Image.asset('images/bloodimg.PNG',width:500,height:200),
+            SizedBox(height: 40,),
+            Image.asset('images/logo.png',width:100,height:90),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Shimmer.fromColors(
                   period: Duration(milliseconds: 2000),
-                  baseColor: Color(0xffEF3F46),
+                  baseColor: Color(0xffe53033),
                   highlightColor: Colors.white.withOpacity(0.8),
                   child: Container(
                     padding: EdgeInsets.all(16.0),
                     child: Text(
-                      "RED",
+                      "REDLINK",
                       style: TextStyle(
                         letterSpacing: 3,
-                          fontSize: 50.0,
+                          fontSize:25.0,
                         fontWeight: FontWeight.bold
                       ),
                     ),
                   ),
                 ),
-                Text(
-                  "LINK",
-                  style: TextStyle(
-                      letterSpacing: 3,
-                      fontSize: 50.0,
-                      fontWeight: FontWeight.bold,
-                  ),
-                ),
+//                Text(
+//                  "LINK",
+//                  style: TextStyle(
+//                      letterSpacing: 3,
+//                      fontSize: 50.0,
+//                      fontWeight: FontWeight.bold,
+//                  ),
+//                ),
               ],
             ),
           ],
