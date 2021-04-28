@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:redlink/Onboarding.dart';
 import 'dart:async';
 import 'package:shimmer/shimmer.dart';
-import 'login_page.dart';
+import 'phone_login_page.dart';
 import 'home_page.dart';
 
 

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:redlink/Colors.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:redlink/login_page.dart';
+import 'package:redlink/Create_Account.dart';
+import 'package:redlink/phone_login_page.dart';
+import 'Login_Page.dart';
 
 class OnBoarding extends StatefulWidget {
   @override
@@ -90,7 +92,7 @@ class _OnBoardingState extends State<OnBoarding> {
                             onTap: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => LoginPage()),
+                                MaterialPageRoute(builder: (context) => Login()),
                               );
                             },
                             child: Container(
@@ -117,7 +119,7 @@ class _OnBoardingState extends State<OnBoarding> {
                           padding: const EdgeInsets.only(right: 30,left: 7),
                           child: InkWell(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp()));
                             },
                             child: Container(
                                 height: 50,

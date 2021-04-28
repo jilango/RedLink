@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:redlink/home_page.dart';
 import 'package:redlink/profile.dart';
-
+import 'Colors.dart';
 import 'request_page.dart';
 class PageGuide extends StatefulWidget {
+//  final int index;
+//  PageGuide(this.index);
+
   @override
   _PageGuideState createState() => _PageGuideState();
 }
@@ -45,8 +48,8 @@ class _PageGuideState extends State<PageGuide> {
       bottomNavigationBar: CurvedNavigationBar(
         index: pageIndex,
         backgroundColor: Colors.white,
-        color: Color(0xffCB282D),
-        buttonBackgroundColor: Color(0xFFBC002D),
+        color:kMainRed,
+        buttonBackgroundColor: kMainRed,
         height: 50,
         items: <Widget>[
           Icon(Icons.add, size: 22,color: Colors.white,),

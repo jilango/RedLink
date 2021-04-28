@@ -8,12 +8,12 @@ import 'fade_animation.dart';
 import 'package:international_phone_input/international_phone_input.dart';
 
 
-class LoginPage extends StatefulWidget {
+class PhoneLoginPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _PhoneLoginPageState createState() => _PhoneLoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _PhoneLoginPageState extends State<PhoneLoginPage> {
   String phoneNumber;
   String phoneIsoCode = '+91';
 

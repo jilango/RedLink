@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Colors.dart';
 class AllEmergencies extends StatefulWidget {
   @override
   _AllEmergenciesState createState() => _AllEmergenciesState();
@@ -14,7 +15,7 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: <Color>[
-                    Color(0xFFE53033),Color(0xFFBC002D),
+                    kMainRed,Color(0xFFBC002D),
                   ])
           ),
         ),
@@ -25,7 +26,7 @@ class _AllEmergenciesState extends State<AllEmergencies> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
-              SizedBox(height: 20,),
+              SizedBox(height: 8,),
               Container(
                 height:100,
                 width: double.infinity,
@@ -38,9 +39,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -83,9 +84,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -128,9 +129,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -173,9 +174,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -218,9 +219,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -263,9 +264,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -308,9 +309,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -353,9 +354,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -398,9 +399,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -443,9 +444,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -488,9 +489,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -533,9 +534,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -578,9 +579,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -623,9 +624,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),
@@ -668,9 +669,9 @@ class _AllEmergenciesState extends State<AllEmergencies> {
                     color: Color.fromRGBO(49, 39, 79, 1),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0x30bc002d),
-                        blurRadius: 5,
-                        offset: Offset(0, 10),
+                        color: Colors.black.withOpacity(0.15),
+                        blurRadius: 8,
+                        offset: Offset(0, 4),
                       )
                     ]
                 ),

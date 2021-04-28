@@ -69,15 +69,15 @@ class _RequestPageState extends State<RequestPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(height: 30,),
-                Center(child: Text("Find a Donor",style: GoogleFonts.montserrat(fontWeight: FontWeight.w500,fontSize: 20,color:kDarkerGrey),)),
+                Text("Find a Donor",style: GoogleFonts.montserrat(fontWeight: FontWeight.w500,fontSize: 20,color:Colors.black),),
                 SizedBox(height: 30,),
                 TextField(
                   decoration: InputDecoration(
                     hintText: 'Patient Name',
-                    hintStyle: GoogleFonts.montserrat(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: kDarkGrey
+                    hintStyle: GoogleFonts.nunito(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black.withOpacity(0.6)
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: kDarkGrey),
@@ -94,10 +94,10 @@ class _RequestPageState extends State<RequestPage> {
                 TextField(
                   decoration: InputDecoration(
                     hintText: 'Blood Type',
-                    hintStyle: GoogleFonts.montserrat(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: kDarkGrey
+                    hintStyle: GoogleFonts.nunito(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black.withOpacity(0.6)
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: kDarkGrey),
@@ -113,10 +113,10 @@ class _RequestPageState extends State<RequestPage> {
                 TextField(
                   decoration: InputDecoration(
                     hintText: 'Reason',
-                    hintStyle: GoogleFonts.montserrat(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: kDarkGrey
+                    hintStyle: GoogleFonts.nunito(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black.withOpacity(0.6)
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: kDarkGrey),
@@ -132,10 +132,10 @@ class _RequestPageState extends State<RequestPage> {
                 TextField(
                   decoration: InputDecoration(
                     hintText: 'Units Required',
-                    hintStyle: GoogleFonts.montserrat(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: kDarkGrey
+                    hintStyle: GoogleFonts.nunito(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black.withOpacity(0.6)
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: kDarkGrey),
@@ -151,10 +151,10 @@ class _RequestPageState extends State<RequestPage> {
                 TextField(
                   decoration: InputDecoration(
                     hintText: 'Deadline',
-                    hintStyle: GoogleFonts.montserrat(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: kDarkGrey
+                    hintStyle: GoogleFonts.nunito(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black.withOpacity(0.6)
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: kDarkGrey),
@@ -170,10 +170,10 @@ class _RequestPageState extends State<RequestPage> {
                 TextField(
                   decoration: InputDecoration(
                     hintText: 'Hospital',
-                    hintStyle: GoogleFonts.montserrat(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: kDarkGrey
+                    hintStyle: GoogleFonts.nunito(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black.withOpacity(0.6)
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: kDarkGrey),
@@ -189,10 +189,10 @@ class _RequestPageState extends State<RequestPage> {
                 TextField(
                   decoration: InputDecoration(
                     hintText: 'Person in charge',
-                    hintStyle: GoogleFonts.montserrat(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: kDarkGrey
+                    hintStyle: GoogleFonts.nunito(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black.withOpacity(0.6)
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: kDarkGrey),
@@ -208,10 +208,10 @@ class _RequestPageState extends State<RequestPage> {
                 TextField(
                   decoration: InputDecoration(
                     hintText: 'Contact Number',
-                    hintStyle: GoogleFonts.montserrat(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: kDarkGrey
+                    hintStyle: GoogleFonts.nunito(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black.withOpacity(0.6)
                     ),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: kDarkGrey),

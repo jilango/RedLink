@@ -3,12 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:redlink/all_emergencies.dart';
 import 'package:redlink/profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'Colors.dart';
+import 'My_Requests.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final _auth = FirebaseAuth.instance;
+  User loggedInUser;
+  bool isActive = false;
+  @override
+  void initState() {
+    loggedInUser=_auth.currentUser;
+    super.initState();
+    isActive = true;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    isActive = false;
+  }
+
 
   void _showcontent() {
     showDialog(
@@ -20,10 +41,10 @@ class _HomePageState extends State<HomePage> {
           content: new SingleChildScrollView(
             child: new ListBody(
               children: [
-                Text('Hospital Name : Apollo(Anna Nagar)',style: TextStyle(fontFamily: 'nunito'),),
-                Text('Units Required : 3',style: TextStyle(fontFamily: 'nunito'),),
-                Text('Deadline : 1:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                Text('Contact Number : 9001230019',style: TextStyle(fontFamily: 'nunito'),),
+                Text('Hospital Name : ',style: TextStyle(fontFamily: 'nunito'),),
+                Text('Units Required : ',style: TextStyle(fontFamily: 'nunito'),),
+                Text('Deadline : ',style: TextStyle(fontFamily: 'nunito'),),
+                Text('Contact Number : ',style: TextStyle(fontFamily: 'nunito'),),
               ],
             ),
           ),
@@ -46,7 +67,8 @@ class _HomePageState extends State<HomePage> {
 
   int count1=15;
   int count2=3;
-  int _value = 8;
+  int _value = 0;
+  int _value1 = 1;
   String type;
   int f=0;
   @override
@@ -79,7 +101,7 @@ class _HomePageState extends State<HomePage> {
     if(f==1)
       return "Confirmed";
     else
-      return "Urgent";
+      return "Type";
   }
 
 
@@ -90,27 +112,36 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 25,),
+            SizedBox(height: 35,),
             Padding(
               padding: const EdgeInsets.only(top:15.0,left:20),
               child: Row(
                 children: <Widget>[
-                  CircleAvatar(
-                    radius: 30.0,
-                    backgroundImage: AssetImage('images/profile.jpg'),
+                  Container(
+                    height: 75,
+                    width: 75,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                            color: Colors.black.withOpacity(0.1), width: 1.5)),
+                    padding: EdgeInsets.all(5.5),
+                    child: CircleAvatar(
+                      radius: 45.0,
+                      backgroundImage: AssetImage('images/profile.jpg'),
+                    ),
                   ),
+                  SizedBox(width: 5,),
                   Padding(
                     padding: const EdgeInsets.all(9.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          'Sam Wilson',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold,fontFamily: 'nunito',
+                        Text(loggedInUser.displayName!=null?loggedInUser.displayName:loggedInUser.email,style: GoogleFonts.montserrat(fontSize: 18, fontWeight: FontWeight.w600,
                         ),
                         ),
-                        SizedBox(height: 0,),
+                        SizedBox(height: 2,),
                         Text(
-                          'Donate Blood, Save Lives!',style: TextStyle(fontSize: 15,fontFamily: 'nunito',color: Colors.black.withOpacity(0.8)
+                          'Donate Blood, Save Lives!',style: GoogleFonts.montserrat(fontSize: 12,color: Colors.black.withOpacity(0.8)
                         ),
                         ),
                       ],
@@ -122,7 +153,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(top:20.0,right: 20,left:20,bottom: 5),
               child: Container(
-                height:170,
+                height:160,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -145,9 +176,9 @@ class _HomePageState extends State<HomePage> {
                      children: <Widget>[
                        Padding(
                          padding: const EdgeInsets.only(top:30.0,right: 17,left: 25),
-                         child: Text(getNumber(count1).toString(),style: TextStyle(fontSize: 70,color: Colors.white.withOpacity(0.8),fontFamily: 'Montserrat'),),
+                         child: Text(getNumber(count1).toString(),style: TextStyle(fontSize: 60,color: Colors.white.withOpacity(0.8),fontFamily: 'Montserrat'),),
                        ),
-                       Text('   Requests',style: TextStyle(fontSize: 20,color: Colors.white.withOpacity(0.8)),)
+                       Text('   Requests',style: TextStyle(fontSize: 16,color: Colors.white.withOpacity(0.8)),)
                      ],
                    ),
                     SizedBox(height: 50, child: VerticalDivider(color: Colors.white.withOpacity(0.8),thickness: 1,)),
@@ -249,32 +280,47 @@ class _HomePageState extends State<HomePage> {
                      Column(
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: <Widget>[
-                         Text('Select Location',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Color(0xFFBC002D),fontFamily: 'Montserrat'),),
+                         Text('Select Location',style: GoogleFonts.montserrat(fontSize: 14,fontWeight:  FontWeight.w500,color: kMainRed,),),
+                         SizedBox(height: 10,),
                          Container(
                            width: 170,
-                           // padding: EdgeInsets.all(5),
-                           decoration: BoxDecoration(
-                               border: Border(bottom: BorderSide(
-                                   color: Colors.grey[200]
-                               ))
-                           ),
-                           child: TextField(
-                             decoration: InputDecoration(
-                                 border: InputBorder.none,
-                                 hintText: "Chennai",
-                                 hintStyle: TextStyle(color: Colors.black,fontSize: 15)
-                             ),
+                           //height: 50,
+                          // padding: EdgeInsets.all(5),
+                           child: Container(
+                             //padding: EdgeInsets.all(20.0),
+                             child: DropdownButton(
+                                 value: _value1,
+                                 items: [
+                                   DropdownMenuItem(
+                                     child: Text("-select-",style: TextStyle(color: Colors.grey),),
+                                     value: 0,
+                                   ),
+                                   DropdownMenuItem(
+                                     child: Text("Chennai",style: TextStyle(color: Colors.black,fontSize: 14),),
+                                     value: 1,
+                                   ),
+                                   DropdownMenuItem(
+                                     child: Text("Bangalore",style: TextStyle(color: Colors.black,fontSize: 14),),
+                                     value: 2,
+                                   ),
+                                 ],
+                                 onChanged: (value) {
+                                   setState(() {
+                                     _value1 = value;
+                                   });
+                                 }),
                            ),
                          ),
                        ],
                      ),
                      //SizedBox(width: 25,),
                      Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
                        children: <Widget>[
-                         Text('Blood Type',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Color(0xFFBC002D),fontFamily: 'Montserrat'),),
+                         Text('Blood Type',style: GoogleFonts.montserrat(fontSize: 14,fontWeight: FontWeight.w500,color: kMainRed,),),
                          SizedBox(height: 10,),
                          Container(
-                           width: 100,
+                           width: 145,
                            // padding: EdgeInsets.all(5),
                            decoration: BoxDecoration(
 //                               border: Border(bottom: BorderSide(
@@ -287,43 +333,43 @@ class _HomePageState extends State<HomePage> {
                                  value: _value,
                                  items: [
                                    DropdownMenuItem(
-                                     child: Text("-select-",style: TextStyle(color: Colors.grey),),
+                                     child: Text("-select-",style: TextStyle(color: Colors.black,fontSize: 14),),
                                      value: 0,
                                    ),
                                    DropdownMenuItem(
-                                     child: Text("A+"),
+                                     child: Text("A+ (Positive)",style: TextStyle(color: Colors.black,fontSize: 14),),
                                      value: 1,
                                    ),
                                    DropdownMenuItem(
-                                     child: Text("A-"),
+                                     child: Text("A- (Negative)",style: TextStyle(color: Colors.black,fontSize: 14),),
                                      value: 2,
                                    ),
                                    DropdownMenuItem(
-                                       child: Text("B+"),
+                                       child: Text("B+ (Positive)",style: TextStyle(color: Colors.black,fontSize: 14),),
                                        value: 3
                                    ),
                                    DropdownMenuItem(
-                                       child: Text("B-"),
+                                       child: Text("B- (Negative)",style: TextStyle(color: Colors.black,fontSize: 14),),
                                        value: 4
                                    ),
                                    DropdownMenuItem(
-                                     child: Text("AB+"),
+                                     child: Text("AB+ (Positive)",style: TextStyle(color: Colors.black,fontSize: 14),),
                                      value: 5,
                                    ),
                                    DropdownMenuItem(
-                                     child: Text("AB-"),
+                                     child: Text("AB- (Negative)",style: TextStyle(color: Colors.black,fontSize: 14),),
                                      value: 6,
                                    ),
                                    DropdownMenuItem(
-                                     child: Text("O+"),
+                                     child: Text("O+ (Positive)",style: TextStyle(color: Colors.black,fontSize: 14),),
                                      value: 7,
                                    ),
                                    DropdownMenuItem(
-                                     child: Text("O-"),
+                                     child: Text("O- (Negative)",style: TextStyle(color: Colors.black,fontSize: 14),),
                                      value: 8,
                                    ),
                                    DropdownMenuItem(
-                                     child: Text("Oh/hh"),
+                                     child: Text("Oh/hh",style: TextStyle(color: Colors.black,fontSize: 14),),
                                      value: 9,
                                    ),
                                  ],
@@ -336,15 +382,171 @@ class _HomePageState extends State<HomePage> {
                          ),
                        ],
                      ),
-                     SizedBox(width: 1,)
+                     //SizedBox(width: 1,)
                    ],
                  ),
-
                  SizedBox(height: 20,),
+                 GestureDetector(
+                   onTap: (){Navigator.push(
+                     context,
+                     MaterialPageRoute(
+                       builder: (context) {
+                         return MyRequests();
+                       },
+                     ),
+                   );
+                   },
+                   child: Container(height: 53,
+                     width: double.infinity,
+                     decoration: BoxDecoration(
+                       borderRadius: BorderRadius.circular(10),
+                       border: Border.all(color: kMainRed,width: 1.5),
+                     ),
+                     padding: EdgeInsets.all(15),
+                     child:Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                       children: [
+                         Text('My Requests',style:TextStyle(color:kMainRed,fontSize: 13,fontWeight: FontWeight.bold,fontFamily: 'Montserrat')),
+                         Icon(Icons.arrow_forward,color: kMainRed,size: 20,),
+                       ],
+                     ),
+                     ),
+                 ),
+                 SizedBox(height: 30,),
                  Row(
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: <Widget>[
-                     Text('Emergencies Near me',style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),),
+                     Text('My Donations',style: GoogleFonts.montserrat(fontSize: 15,fontWeight: FontWeight.w500,),)
+                   ],
+                 ),
+                 SizedBox(height: 10,),
+                 Container(
+                   height: 110,
+                   width: 450,
+                   child: ListView(
+                     scrollDirection: Axis.horizontal,
+                     children: [
+                       GestureDetector(
+                         onTap: (){
+                           setState(() {
+                             _showcontent();
+
+                           });
+                         },
+                         child: Padding(
+                           padding: const EdgeInsets.symmetric(vertical:8.0),
+                           child: Container(
+                             height:100,
+                             width: 320,
+                             decoration: BoxDecoration(
+                                 color: Colors.white,
+                                 borderRadius: BorderRadius.circular(15),
+                                 border: Border.all(color: kMainRed,width: 1.2),
+                                 boxShadow: [
+                                   BoxShadow(
+                                     color: Colors.black.withOpacity(0.1),
+                                     blurRadius: 8,
+                                     offset: Offset(0, 4),
+                                   )
+                                 ]
+                             ),
+                             child: Row(
+                               children: <Widget>[
+                                 Column(
+                                   children: <Widget>[
+                                     Padding(
+                                       padding: const EdgeInsets.only(top:20.0,right: 10,left: 25),
+                                       child: Text('O-',style: TextStyle(fontSize: 22,color: kMainRed,fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
+                                     ),
+                                     Padding(
+                                       padding: const EdgeInsets.only(left: 5),
+                                       child: Text(getText(),style: TextStyle(fontSize: 13 ,color: Colors.black,fontFamily: 'nunito'),),
+                                     ),
+                                   ],
+                                 ),
+                                 SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
+                                 SizedBox(width: 5,),
+                                 Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                   mainAxisAlignment: MainAxisAlignment.center,
+                                   children: <Widget>[
+//                                     SizedBox(height: 12,),
+                                     Text('Hospital Name : Apollo(Anna Nagar)',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
+                                     Text('Units Required : 3',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
+                                     Text('Deadline : 1:00pm, 20th September ',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color:Colors.black),),
+                                     Text('Contact Number : 9001230019',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
+                                   ],
+                                 ),
+                               ],
+                             ),
+                           ),
+                         ),
+                       ),
+                       SizedBox(width: 15,),
+                       GestureDetector(
+                         onTap: (){
+                           setState(() {
+                             _showcontent();
+
+                           });
+                         },
+                         child: Padding(
+                           padding: const EdgeInsets.symmetric(vertical:8.0),
+                           child: Container(
+                             height:100,
+                             width: 320,
+                             decoration: BoxDecoration(
+                                 color: Colors.white,
+                                 borderRadius: BorderRadius.circular(15),
+                                 border: Border.all(color: kMainRed,width: 1.2),
+                                 boxShadow: [
+                                   BoxShadow(
+                                     color: Colors.black.withOpacity(0.1),
+                                     blurRadius: 8,
+                                     offset: Offset(0, 4),
+                                   )
+                                 ]
+                             ),
+                             child: Row(
+                               children: <Widget>[
+                                 Column(
+                                   children: <Widget>[
+                                     Padding(
+                                       padding: const EdgeInsets.only(top:20.0,right: 10,left: 25),
+                                       child: Text('O-',style: TextStyle(fontSize: 22,color: kMainRed,fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
+                                     ),
+                                     Padding(
+                                       padding: const EdgeInsets.only(left: 5),
+                                       child: Text(getText(),style: TextStyle(fontSize: 13 ,color: Colors.black,fontFamily: 'nunito'),),
+                                     ),
+                                   ],
+                                 ),
+                                 SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
+                                 SizedBox(width: 5,),
+                                 Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                   mainAxisAlignment: MainAxisAlignment.center,
+                                   children: <Widget>[
+//                                     SizedBox(height: 12,),
+                                     Text('Hospital Name : Apollo(Anna Nagar)',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
+                                     Text('Units Required : 3',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
+                                     Text('Deadline : 1:00pm, 20th September ',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color:Colors.black),),
+                                     Text('Contact Number : 9001230019',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
+                                   ],
+                                 ),
+                               ],
+                             ),
+                           ),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+                 SizedBox(height: 30,),
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   children: <Widget>[
+                     Text('Emergencies Near me',style: GoogleFonts.montserrat(fontSize: 15,fontWeight: FontWeight.w500,),),
                      GestureDetector(
                          onTap: (){
                            Navigator.push(
@@ -356,204 +558,133 @@ class _HomePageState extends State<HomePage> {
                              ),
                            );
                          },
-                         child: Text('view all',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)),
+                         child: Text('view all',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,fontFamily: 'Montserrat'),)),
                    ],
                  ),
-                 SizedBox(height: 20,),
-                 GestureDetector(
-                   onTap: (){
-                     setState(() {
-                       _showcontent();
+                 SizedBox(height: 10,),
+                 Container(
+                   height: 110,
+                   width: 450,
+                   child: ListView(
+                     scrollDirection: Axis.horizontal,
+                     children: [
+                       GestureDetector(
+                         onTap: (){
+                           setState(() {
+                             _showcontent();
 
-                     });
-
-
-                   },
-                   child: Container(
-                     height:100,
-                     width: double.infinity,
-                     decoration: BoxDecoration(
-                         gradient: LinearGradient(
-                             colors: [getColor(),getColor(), ],
-                             tileMode: TileMode.clamp
-                         ),
-                         borderRadius: BorderRadius.circular(15),
-                         color: Color.fromRGBO(49, 39, 79, 1),
-                         boxShadow: [
-                           BoxShadow(
-                             color: Color(0x30bc002d),
-                             blurRadius: 5,
-                             offset: Offset(0, 10),
-                           )
-                         ]
-                     ),
-                     child: Row(
-                       children: <Widget>[
-                         Column(
-                           children: <Widget>[
-                             Padding(
-                               padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                               child: Text('O-',style: TextStyle(fontSize: 22,color: getColor1(),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
+                           });
+                         },
+                         child: Padding(
+                           padding: const EdgeInsets.symmetric(vertical:8.0),
+                           child: Container(
+                             height:100,
+                             width: 320,
+                             decoration: BoxDecoration(
+                                 color: Colors.white,
+                                 borderRadius: BorderRadius.circular(15),
+                                 border: Border.all(color: kMainRed,width: 1.2),
+                                 boxShadow: [
+                                   BoxShadow(
+                                     color: Colors.black.withOpacity(0.1),
+                                     blurRadius: 8,
+                                     offset: Offset(0, 4),
+                                   )
+                                 ]
                              ),
-                             Padding(
-                               padding: const EdgeInsets.only(left: 5),
-                               child: Text(getText(),style: TextStyle(fontSize: 15 ,color: getColor2(),fontFamily: 'nunito'),),
+                             child: Row(
+                               children: <Widget>[
+                                 Column(
+                                   children: <Widget>[
+                                     Padding(
+                                       padding: const EdgeInsets.only(top:20.0,right: 10,left: 25),
+                                       child: Text('O-',style: TextStyle(fontSize: 22,color: kMainRed,fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
+                                     ),
+                                     Padding(
+                                       padding: const EdgeInsets.only(left: 5),
+                                       child: Text(getText(),style: TextStyle(fontSize: 13 ,color: Colors.black,fontFamily: 'nunito'),),
+                                     ),
+                                   ],
+                                 ),
+                                 SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
+                                 SizedBox(width: 5,),
+                                 Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                   mainAxisAlignment: MainAxisAlignment.center,
+                                   children: <Widget>[
+//                                     SizedBox(height: 12,),
+                                     Text('Hospital Name : Apollo(Anna Nagar)',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
+                                     Text('Units Required : 3',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
+                                     Text('Deadline : 1:00pm, 20th September ',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color:Colors.black),),
+                                     Text('Contact Number : 9001230019',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
+                                   ],
+                                 ),
+                               ],
                              ),
-                           ],
-                         ),
-                         SizedBox(height: 35, child: VerticalDivider(color: getColor2(),thickness: 1,)),
-                         SizedBox(width: 5,),
-                         Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: <Widget>[
-                             SizedBox(height: 15,),
-                             Text('Hospital Name : Apollo(Anna Nagar)',style: TextStyle(fontFamily: 'nunito',color: getColor2()),),
-                             Text('Units Required : 3',style: TextStyle(fontFamily: 'nunito',color: getColor2()),),
-                             Text('Deadline : 1:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito',color: getColor2()),),
-                             Text('Contact Number : 9001230019',style: TextStyle(fontFamily: 'nunito',color: getColor2()),),
-                           ],
-                         ),
-                       ],
-                     ),
-                   ),
-                 ),
-                 SizedBox(height: 10,),
-                 Container(
-                   height:100,
-                   width: double.infinity,
-                   decoration: BoxDecoration(
-                       gradient: LinearGradient(
-                           colors: [Color(0xFFffffff),Color(0xFFffffff), ],
-                           tileMode: TileMode.clamp
-                       ),
-                       borderRadius: BorderRadius.circular(15),
-                       color: Color.fromRGBO(49, 39, 79, 1),
-                       boxShadow: [
-                         BoxShadow(
-                           color: Color(0x30bc002d),
-                           blurRadius: 5,
-                           offset: Offset(0, 10),
-                         )
-                       ]
-                   ),
-                   child: Row(
-                     children: <Widget>[
-                       Column(
-                         children: <Widget>[
-                           Padding(
-                             padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                             child: Text('A+',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
                            ),
-                           Text('   Urgent',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                         ],
+                         ),
                        ),
-                       SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                       SizedBox(width: 5,),
-                       Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: <Widget>[
-                           SizedBox(height: 15,),
-                           Text('Hospital Name : Global Hospital',style: TextStyle(fontFamily: 'nunito'),),
-                           Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                           Text('Deadline : 4:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                           Text('Contact Number : 8790917819',style: TextStyle(fontFamily: 'nunito'),),
-                         ],
+                       SizedBox(width: 15,),
+                       GestureDetector(
+                         onTap: (){
+                           setState(() {
+                             _showcontent();
+
+                           });
+                         },
+                         child: Padding(
+                           padding: const EdgeInsets.symmetric(vertical:8.0),
+                           child: Container(
+                             height:100,
+                             width: 320,
+                             decoration: BoxDecoration(
+                                 color: Colors.white,
+                                 borderRadius: BorderRadius.circular(15),
+                                 border: Border.all(color: kMainRed,width: 1.2),
+                                 boxShadow: [
+                                   BoxShadow(
+                                     color: Colors.black.withOpacity(0.1),
+                                     blurRadius: 8,
+                                     offset: Offset(0, 4),
+                                   )
+                                 ]
+                             ),
+                             child: Row(
+                               children: <Widget>[
+                                 Column(
+                                   children: <Widget>[
+                                     Padding(
+                                       padding: const EdgeInsets.only(top:20.0,right: 10,left: 25),
+                                       child: Text('O-',style: TextStyle(fontSize: 22,color: kMainRed,fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
+                                     ),
+                                     Padding(
+                                       padding: const EdgeInsets.only(left: 5),
+                                       child: Text(getText(),style: TextStyle(fontSize: 13 ,color: Colors.black,fontFamily: 'nunito'),),
+                                     ),
+                                   ],
+                                 ),
+                                 SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
+                                 SizedBox(width: 5,),
+                                 Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                   mainAxisAlignment: MainAxisAlignment.center,
+                                   children: <Widget>[
+//                                     SizedBox(height: 12,),
+                                     Text('Hospital Name : Apollo(Anna Nagar)',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
+                                     Text('Units Required : 3',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
+                                     Text('Deadline : 1:00pm, 20th September ',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color:Colors.black),),
+                                     Text('Contact Number : 9001230019',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
+                                   ],
+                                 ),
+                               ],
+                             ),
+                           ),
+                         ),
                        ),
                      ],
                    ),
                  ),
 
-                 SizedBox(height: 10,),
-                 Container(
-                   height:100,
-                   width: double.infinity,
-                   decoration: BoxDecoration(
-                       gradient: LinearGradient(
-                           colors: [Color(0xFFffffff),Color(0xFFffffff), ],
-                           tileMode: TileMode.clamp
-                       ),
-                       borderRadius: BorderRadius.circular(15),
-                       color: Color.fromRGBO(49, 39, 79, 1),
-                       boxShadow: [
-                         BoxShadow(
-                           color: Color(0x30bc002d),
-                           blurRadius: 5,
-                           offset: Offset(0, 10),
-                         )
-                       ]
-                   ),
-                   child: Row(
-                     children: <Widget>[
-                       Column(
-                         children: <Widget>[
-                           Padding(
-                             padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                             child: Text('B+',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                           ),
-                           Text('   Type',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                         ],
-                       ),
-                       SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                       SizedBox(width: 5,),
-                       Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: <Widget>[
-                           SizedBox(height: 15,),
-                           Text('Hospital Name : Madras Medical Mission',style: TextStyle(fontFamily: 'nunito'),),
-                           Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                           Text('Deadline : 9:00am, 21th September ',style: TextStyle(fontFamily: 'nunito'),),
-                           Text('Contact Number : 8777950819',style: TextStyle(fontFamily: 'nunito'),),
-                         ],
-                       ),
-                     ],
-                   ),
-                 ),
-                 SizedBox(height: 10,),
-                 Container(
-                   height:100,
-                   width: double.infinity,
-                   decoration: BoxDecoration(
-                       gradient: LinearGradient(
-                           colors: [Color(0xFFffffff),Color(0xFfffffff), ],
-                           tileMode: TileMode.clamp
-                       ),
-                       borderRadius: BorderRadius.circular(15),
-                       color: Color.fromRGBO(49, 39, 79, 1),
-                       boxShadow: [
-                         BoxShadow(
-                           color: Color(0x30bc002d),
-                           blurRadius: 5,
-                           offset: Offset(0, 10),
-                         )
-                       ]
-                   ),
-                   child: Row(
-                     children: <Widget>[
-                       Column(
-                         children: <Widget>[
-                           Padding(
-                             padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                             child: Text('O-',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                           ),
-                           Text('   Type',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                         ],
-                       ),
-                       SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                       SizedBox(width: 5,),
-                       Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: <Widget>[
-                           SizedBox(height: 15,),
-                           Text('Hospital Name : S.M.F(Anna Nagar)',style: TextStyle(fontFamily: 'nunito'),),
-                           Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                           Text('Deadline : 9:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                           Text('Contact Number : 9781235019',style: TextStyle(fontFamily: 'nunito'),),
-                         ],
-                       ),
-                     ],
-                   ),
-                 ),
-                 SizedBox(height: 10,),
                ],
              ),
            )

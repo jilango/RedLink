@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "133426825500",
+    "project_id": "redlink-b94a4",
+    "storage_bucket": "redlink-b94a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133426825500:android:72f00586dbacacf092d2d9",
+        "android_client_info": {
+          "package_name": "com.example.redlink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133426825500-99hn2l3h9sstsockst4v1jg1g00j98ue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUDwVvVR6-j_6nfu1VdwnQyH1duID-qtE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133426825500-99hn2l3h9sstsockst4v1jg1g00j98ue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

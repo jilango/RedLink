@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:redlink/compatability.dart';
 import 'package:redlink/home_page.dart';
 import 'constants.dart';
+import 'package:redlink/Colors.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -36,43 +37,98 @@ class _ProfileState extends State<Profile> {
       ),
       child: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
               child: Padding(
-                padding: const EdgeInsets.only(left: 15, bottom: 15, top: 8),
+                padding: const EdgeInsets.only(left: 15, bottom: 0, top: 0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  //crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(
-                      height: 85,
+                      height: 50,
                     ),
-                    Container(
-                      height: 100,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              color: Colors.white.withOpacity(0.2), width: 2)),
-                      padding: EdgeInsets.all(5.5),
-                      child: CircleAvatar(
-                        radius: 45.0,
-                        backgroundImage: AssetImage('images/profile.jpg'),
-                      ),
-                    ),
-                    Text(
-                      'Sam Wilson',
-                      style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'REDLINK ID',
-                      style: TextStyle(fontSize: 15, color: Colors.white,letterSpacing: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 90,
+                          width: 90,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  color: Colors.white.withOpacity(0.2), width: 2)),
+                          padding: EdgeInsets.all(5.5),
+                          child: CircleAvatar(
+                            radius: 45.0,
+                            backgroundImage: AssetImage('images/profile.jpg'),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Sam Wilson',
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(height: 2,),
+                            Text(
+                              'REDLINK ID',
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 10,letterSpacing: 4,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                        SizedBox(width: 75,),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: RoundIconButton(icon: Icons.mode_edit, onPressed: (){
+                            //EDIT PROFILE
+                          }),
+                        )
+                      ],
                     ),
                     SizedBox(
                       height: 20,
+                    ),
+                    Row(children: [
+                      SizedBox(width: 15,),
+                      Expanded(
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            border: Border.all(color:Colors.white),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: Center(child: Text('5 Requests',style: GoogleFonts.montserrat(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),)),
+                        ),
+                      ),
+                      SizedBox(width: 15,),
+                      Expanded(
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            border: Border.all(color:Colors.white),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: Center(child: Text('17 Donations',style: GoogleFonts.montserrat(
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),)),
+                        ),
+                      ),
+                      SizedBox(width: 25,),
+                    ],),
+                    SizedBox(
+                      height: 25,
                     ),
                   ],
                 ),
@@ -87,6 +143,9 @@ class _ProfileState extends State<Profile> {
               ),
               child: Column(
                 children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -94,53 +153,61 @@ class _ProfileState extends State<Profile> {
                           padding: const EdgeInsets.only(
                               left: 25.0, right: 7.7, top: 20),
                           child: Container(
-                            height: 80,
+                            height: 65,
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                     colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
                                     tileMode: TileMode.clamp
                                 ),
                                 borderRadius: BorderRadius.circular(15),
-                                color: Color.fromRGBO(49, 39, 79, 1),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Color(0x30bc002d),
-                                    blurRadius: 5,
-                                    offset: Offset(0, 10),
+                                    color: Colors.black.withOpacity(0.15),
+                                    blurRadius: 10,
+                                    spreadRadius: 0,
+                                    offset: Offset(0, 4),
                                   )
                                 ]
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              //mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    SizedBox(
-                                      width: 14,
-                                    ),
-                                    Icon(
-                                      Icons.calendar_today,
-                                      color: Color(0xFFBC002D),
-                                    ),
-                                    Text(
-                                      '  Date of Birth',
-                                      style: kLabelTextStyle,
-                                    ),
-                                  ],
-                                ),
-                                //SizedBox(height: 1,),
-                                Text(
-                                  '            06/09/2000',
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w900,
+                            child: Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      SizedBox(width: 15,),
+                                      Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Icon(
+                                          Icons.calendar_today,
+                                          color: Color(0xFFBC002D),
+                                          size: 20,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Date of Birth',
+                                              style: kLabelTextStyle,
+                                            ),
+                                            SizedBox(height: 3,),
+                                            Text('06/09/2000',
+                                              style: kNumberTextStyle,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                    ],
                                   ),
-                                ),
-                              ],
+                                  //SizedBox(height: 1,),
+
+                                ],
+                              ),
                             ),
                             //curveType: CurveType.convex,
                           ),
@@ -151,53 +218,62 @@ class _ProfileState extends State<Profile> {
                           padding: const EdgeInsets.only(
                               left: 7.7, right: 25, top: 20),
                           child: Container(
-                            height: 80,
+                            height: 65,
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                     colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
                                     tileMode: TileMode.clamp
                                 ),
                                 borderRadius: BorderRadius.circular(15),
-                                color: Color.fromRGBO(49, 39, 79, 1),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Color(0x30bc002d),
-                                    blurRadius: 5,
-                                    offset: Offset(0, 10),
+                                    color: Colors.black.withOpacity(0.15),
+                                    blurRadius: 10,
+                                    spreadRadius: 0,
+                                    offset: Offset(0, 4),
                                   )
                                 ]
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              //mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    SizedBox(
-                                      width: 14,
-                                    ),
-                                    Icon(
-                                      Icons.opacity,
-                                      color: Color(0xFFBC002D),
-                                    ),
-                                    Text(
-                                      '  Blood Type',
-                                      style: kLabelTextStyle,
-                                    ),
-                                  ],
-                                ),
-                                //SizedBox(height: 1,),
-                                Text(
-                                  '            O-',
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w900,
+                            child: Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      SizedBox(width: 15,),
+                                      Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Icon(
+                                          Icons.opacity,
+                                          color: Color(0xFFBC002D),
+                                          size: 23,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Column(
+                                         crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Blood Type',
+                                              style: kLabelTextStyle,
+                                            ),
+                                            SizedBox(height: 3,),
+                                            Text('O-',
+                                              style: kNumberTextStyle,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                    ],
                                   ),
-                                ),
-                              ],
+                                  //SizedBox(height: 1,),
+
+                                ],
+                              ),
                             ),
                             //curveType: CurveType.convex,
                           ),
@@ -209,38 +285,34 @@ class _ProfileState extends State<Profile> {
                     padding:
                         const EdgeInsets.only(left: 25.0, right: 25.0, top: 20),
                     child: Container(
-                      height: 110,
+                      height: 80,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
                               tileMode: TileMode.clamp
                           ),
                           borderRadius: BorderRadius.circular(15),
-                          color: Color.fromRGBO(49, 39, 79, 1),
                           boxShadow: [
                             BoxShadow(
-                              color: Color(0x30bc002d),
-                              blurRadius: 5,
-                              offset: Offset(0, 10),
+                              color: Colors.black.withOpacity(0.15),
+                              blurRadius: 8,
+                              offset: Offset(0, 4),
                             )
                           ]
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          SizedBox(
-                            height: 9,
-                          ),
-                          Text(
-                            'Height',
-                            style: kLabelTextStyle,
-                          ),
-                          //SizedBox(height: 1,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                            textBaseline: TextBaseline.alphabetic,
+                            //crossAxisAlignment: CrossAxisAlignment.baseline,
+                            //textBaseline: TextBaseline.alphabetic,
                             children: <Widget>[
+                             // Icon(Icons.height,size: 20,color: Color(0xFFBC002D),),
+                              Text(
+                                'Height : ',
+                                style: kLabelTextStyle,
+                              ),
                               Text(
                                 height.toString(),
                                 style: kNumberTextStyle,
@@ -255,8 +327,8 @@ class _ProfileState extends State<Profile> {
                             data: SliderTheme.of(context).copyWith(
                               thumbShape: RoundSliderThumbShape(
                                   enabledThumbRadius: 9.0),
-                              activeTrackColor: Color(0xFFBC002D),
-                              thumbColor: Color(0xFFBC002D),
+                              activeTrackColor: kMainRed,
+                              thumbColor: kMainRed,
                               overlayColor: Color(0x222962F7),
                               inactiveTrackColor: Colors.grey,
                               overlayShape:
@@ -284,7 +356,7 @@ class _ProfileState extends State<Profile> {
                           padding: const EdgeInsets.only(
                               left: 25.0, right: 7.7, top: 20),
                           child: Container(
-                            height: 110,
+                            height: 80,
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                     colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
@@ -294,22 +366,27 @@ class _ProfileState extends State<Profile> {
                                 color: Color.fromRGBO(49, 39, 79, 1),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Color(0x30bc002d),
-                                    blurRadius: 5,
-                                    offset: Offset(0, 10),
+                                    color: Colors.black.withOpacity(0.15),
+                                    blurRadius: 8,
+                                    offset: Offset(0, 4),
                                   )
                                 ]
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text(
-                                  'Weight',
-                                  style: kLabelTextStyle,
-                                ),
-                                Text(
-                                  weight.toString(),
-                                  style: kNumberTextStyle,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Weight : ',
+                                      style: kLabelTextStyle,
+                                    ),
+                                    Text(
+                                      weight.toString(),
+                                      style: kNumberTextStyle,
+                                    ),
+                                  ],
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -323,7 +400,7 @@ class _ProfileState extends State<Profile> {
                                       },
                                     ),
                                     SizedBox(
-                                      width: 2.0,
+                                      width: 0,
                                     ),
                                     RoundIconButton(
                                       icon: Icons.add,
@@ -344,9 +421,9 @@ class _ProfileState extends State<Profile> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              left: 7.7, right: 25.0, top: 20),
+                              left: 7.7, right: 25, top: 20),
                           child: Container(
-                            height: 110,
+                            height: 80,
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                     colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
@@ -356,23 +433,29 @@ class _ProfileState extends State<Profile> {
                                 color: Color.fromRGBO(49, 39, 79, 1),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Color(0x30bc002d),
-                                    blurRadius: 5,
-                                    offset: Offset(0, 10),
+                                    color: Colors.black.withOpacity(0.15),
+                                    blurRadius: 8,
+                                    offset: Offset(0, 4),
                                   )
                                 ]
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text(
-                                  'Age',
-                                  style: kLabelTextStyle,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Age : ',
+                                      style: kLabelTextStyle,
+                                    ),
+                                    Text(
+                                      age.toString(),
+                                      style: kNumberTextStyle,
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  age.toString(),
-                                  style: kNumberTextStyle,
-                                ),
+
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
@@ -403,112 +486,182 @@ class _ProfileState extends State<Profile> {
                       ),
                     ],
                   ),
+
+
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 25.0, right: 25.0, top: 20),
+                    padding: const EdgeInsets.only(
+                        left: 25.0, right: 25, top: 20),
                     child: Container(
-                      height: 80,
+                      height: 65,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
                               tileMode: TileMode.clamp
                           ),
                           borderRadius: BorderRadius.circular(15),
-                          color: Color.fromRGBO(49, 39, 79, 1),
                           boxShadow: [
                             BoxShadow(
-                              color: Color(0x30bc002d),
-                              blurRadius: 5,
-                              offset: Offset(0, 10),
+                              color: Colors.black.withOpacity(0.15),
+                              blurRadius: 10,
+                              spreadRadius: 0,
+                              offset: Offset(0, 4),
                             )
                           ]
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        //mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 14,
-                              ),
-                              Icon(
-                                Icons.local_hospital,
-                                color: Color(0xFFBC002D),
-                              ),
-                              Text(
-                                '  Medical Condition',
-                                style: kLabelTextStyle,
-                              ),
-                            ],
-                          ),
-                          //SizedBox(height: 1,),
-                          Text(
-                            '             Low Blood Pressure',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w900,
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                SizedBox(width: 15,),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Icon(
+                                    Icons.local_hospital,
+                                    color: Color(0xFFBC002D),
+                                    size: 22,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Medical Condition',
+                                        style: kLabelTextStyle,
+                                      ),
+                                      SizedBox(height: 3,),
+                                      Text('Low Blood Pressure',
+                                        style: kNumberTextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                              ],
                             ),
-                          ),
-                        ],
+                            //SizedBox(height: 1,),
+
+                          ],
+                        ),
                       ),
                       //curveType: CurveType.convex,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 25.0, right: 25.0, top: 20, bottom: 20),
+                        left: 25.0, right: 25, top: 20),
                     child: Container(
-                      height: 80,
+                      height: 65,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
                               tileMode: TileMode.clamp
                           ),
                           borderRadius: BorderRadius.circular(15),
-                          color: Color.fromRGBO(49, 39, 79, 1),
                           boxShadow: [
                             BoxShadow(
-                              color: Color(0x30bc002d),
-                              blurRadius: 5,
-                              offset: Offset(0, 10),
+                              color: Colors.black.withOpacity(0.15),
+                              blurRadius: 10,
+                              spreadRadius: 0,
+                              offset: Offset(0, 4),
                             )
                           ]
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        //mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              SizedBox(
-                                width: 14,
-                              ),
-                              Icon(
-                                Icons.phone,
-                                color: Color(0xFFBC002D),
-                              ),
-                              Text(
-                                '  Contact',
-                                style: kLabelTextStyle,
-                              ),
-                            ],
-                          ),
-                          //SizedBox(height: 1,),
-                          Text(
-                            '             +91 98566 67445',
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w900,
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                SizedBox(width: 15,),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Icon(
+                                    Icons.phone,
+                                    color: Color(0xFFBC002D),
+                                    size: 20,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Contact',
+                                        style: kLabelTextStyle,
+                                      ),
+                                      SizedBox(height: 3,),
+                                      Text('+91 9856 667445',
+                                        style: kNumberTextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                              ],
                             ),
+                            //SizedBox(height: 1,),
+
+                          ],
+                        ),
+                      ),
+                      //curveType: CurveType.convex,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 25.0, right: 25, top: 20),
+                    child: Container(
+                      height: 65,
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
+                              tileMode: TileMode.clamp
                           ),
-                        ],
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.15),
+                              blurRadius: 10,
+                              spreadRadius: 0,
+                              offset: Offset(0, 4),
+                            )
+                          ]
+                      ),
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                SizedBox(width: 15,),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Icon(
+                                    Icons.history,
+                                    color: Color(0xFFBC002D),
+                                    size: 23,
+                                  ),
+                                ),
+                                Text(
+                                  '  Donation History',
+                                  style: kLabelTextStyle.copyWith(color: kMainRed,fontSize: 14),
+                                ),
+
+
+                              ],
+                            ),
+                            //SizedBox(height: 1,),
+
+                          ],
+                        ),
                       ),
                       //curveType: CurveType.convex,
                     ),
@@ -535,21 +688,20 @@ class _ProfileState extends State<Profile> {
                       );
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(left:25.0,right: 25.0,top: 20,bottom: 20),
+                      padding: const EdgeInsets.only(left:25.0,right: 25.0,top: 20,bottom: 15),
                       child: Container(
-                        height: 60,
+                        height: 56,
                         decoration: BoxDecoration(
                             gradient: LinearGradient(
-                                colors: [Color(0xFFBC002D),Color(0xFFBC002D), ],
+                                colors: [kMainRed,kMainRed ],
                                 tileMode: TileMode.clamp
                             ),
                             borderRadius: BorderRadius.circular(15),
-                            color: Color.fromRGBO(49, 39, 79, 1),
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0x30bc002d),
-                                blurRadius: 5,
-                                offset: Offset(0, 10),
+                                color: Colors.black.withOpacity(0.15),
+                                blurRadius: 8,
+                                offset: Offset(0, 4),
                               )
                             ]
                         ),
@@ -557,7 +709,7 @@ class _ProfileState extends State<Profile> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           //mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(height: 20,),
+                            SizedBox(height: 16,),
                             Center(
                               child: Text(
                                 '  Who can I donate to?',
@@ -574,7 +726,46 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                   ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CompatabilityPage();
+                          },
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left:25.0,right: 25.0,top: 0,bottom: 10),
+                      child: Container(
+                        height: 55,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: kMainRed),
+                            borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          //mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(height: 16,),
+                            Center(
+                              child: Text(
+                                'Logout',
+                                style: TextStyle(fontSize: 17,fontFamily: 'nunito',fontWeight: FontWeight.bold,color: kMainRed),
 
+                              ),
+                            ),
+
+                            //SizedBox(height: 1,),
+
+                          ],
+                        ),
+                        //curveType: CurveType.convex,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -595,12 +786,11 @@ class RoundIconButton extends StatelessWidget {
     return RawMaterialButton(
       onPressed: onPressed,
       elevation: 3.0,
-      child: Icon(icon),
+      child: Icon(icon,color: Colors.white,),
       shape: CircleBorder(),
-      //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       constraints: BoxConstraints.tightFor(
-        width: 40.0,
-        height: 40.0,
+        width: 35.0,
+        height: 35.0,
       ),
       fillColor: Color(0xffE53033),
     );
