@@ -108,6 +108,7 @@ class _SignUpState extends State<SignUp> {
                                   color: kLightGrey,
                                   borderRadius: new BorderRadius.circular(20.0)),
                               child: TextFormField(
+                                maxLines: 1,
                                 onChanged: (value) {
                                   setState(() {
                                     userName = value;
@@ -119,6 +120,7 @@ class _SignUpState extends State<SignUp> {
                                     fontWeight: FontWeight.w500),
                                 cursorColor: kMainRed,
                                 decoration: InputDecoration(
+                                  isDense: true,
                                   prefixIcon: Icon(
                                     Icons.person,
                                     color:  kMainRed,
@@ -172,6 +174,7 @@ class _SignUpState extends State<SignUp> {
                                     fontWeight: FontWeight.w500),
                                 cursorColor: kMainRed,
                                 decoration: InputDecoration(
+                                  isDense: true,
                                   contentPadding:
                                   EdgeInsets.fromLTRB(5.0, 1.0, 5.0, 0),
                                   prefixIcon: Icon(

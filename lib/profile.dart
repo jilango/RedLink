@@ -5,17 +5,60 @@ import 'constants.dart';
 import 'package:redlink/Colors.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+var _firebaseref = FirebaseDatabase().reference().child('User');
 
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
 }
+var name;
+var req;
+var donations;
+var dob;
+var btype;
+var mc;
+var contact;
+var userid;
 
 class _ProfileState extends State<Profile> {
   int height = 173;
   int age = 20;
   int weight = 58;
+  String name;
+
+  final _auth = FirebaseAuth.instance;
+  User loggedInUser;
+  bool isActive = false;
+  @override
+  void initState() {
+    loggedInUser=_auth.currentUser;
+    super.initState();
+    isActive = true;
+    userid=loggedInUser.uid;
+    _firebaseref.child("${userid}").once().then((DataSnapshot snapshot) {
+      name = snapshot.value["Name"].toString();
+      req = snapshot.value["Requests"].toString();
+      donations = snapshot.value["Donations"].toString();
+      dob = snapshot.value["Dob"].toString();
+      btype = snapshot.value["BloodType"].toString();
+      mc = snapshot.value["MedCondition"].toString();
+      contact = snapshot.value["Phone"].toString();
+      setState(() {});
+    });
+
+
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    isActive = false;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +111,7 @@ class _ProfileState extends State<Profile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Sam Wilson',
+                             name,
                               style: GoogleFonts.montserrat(
                                   fontSize: 18,
                                   color: Colors.white,
@@ -105,7 +148,7 @@ class _ProfileState extends State<Profile> {
                             border: Border.all(color:Colors.white),
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
-                          child: Center(child: Text('5 Requests',style: GoogleFonts.montserrat(
+                          child: Center(child: Text('$req Requests',style: GoogleFonts.montserrat(
                               fontSize: 12,
                               color: Colors.white,
                               fontWeight: FontWeight.w500),)),
@@ -119,7 +162,7 @@ class _ProfileState extends State<Profile> {
                             border: Border.all(color:Colors.white),
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
-                          child: Center(child: Text('17 Donations',style: GoogleFonts.montserrat(
+                          child: Center(child: Text('$donations Donations',style: GoogleFonts.montserrat(
                               fontSize: 12,
                               color: Colors.white,
                               fontWeight: FontWeight.w500),)),
@@ -195,7 +238,7 @@ class _ProfileState extends State<Profile> {
                                               style: kLabelTextStyle,
                                             ),
                                             SizedBox(height: 3,),
-                                            Text('06/09/2000',
+                                            Text(dob,
                                               style: kNumberTextStyle,
                                             ),
                                           ],
@@ -261,7 +304,7 @@ class _ProfileState extends State<Profile> {
                                               style: kLabelTextStyle,
                                             ),
                                             SizedBox(height: 3,),
-                                            Text('O-',
+                                            Text(btype,
                                               style: kNumberTextStyle,
                                             ),
                                           ],
@@ -534,7 +577,7 @@ class _ProfileState extends State<Profile> {
                                         style: kLabelTextStyle,
                                       ),
                                       SizedBox(height: 3,),
-                                      Text('Low Blood Pressure',
+                                      Text(mc,
                                         style: kNumberTextStyle,
                                       ),
                                     ],
@@ -597,7 +640,7 @@ class _ProfileState extends State<Profile> {
                                         style: kLabelTextStyle,
                                       ),
                                       SizedBox(height: 3,),
-                                      Text('+91 9856 667445',
+                                      Text('+91 $contact',
                                         style: kNumberTextStyle,
                                       ),
                                     ],

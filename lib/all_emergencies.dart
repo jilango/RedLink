@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'Colors.dart';
+import 'package:firebase_database/firebase_database.dart';
 class AllEmergencies extends StatefulWidget {
   @override
   _AllEmergenciesState createState() => _AllEmergenciesState();
 }
 class _AllEmergenciesState extends State<AllEmergencies> {
+  var _firbaseref = FirebaseDatabase().reference().child("Emergencies");
+  List<Map<dynamic, dynamic>> lists = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,692 +24,144 @@ class _AllEmergenciesState extends State<AllEmergencies> {
         ),
         title: Text("Emergencies Near Me",style: TextStyle(fontFamily: 'nunito'),),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: 8,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('O-',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Urgent',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : Apollo (Anna Nagar)',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 3',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 1:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 9001230019',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFFffffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('A+',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Urgent',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : Global Hospital',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 4:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 8790917819',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFFffffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('B+',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Type',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : Madras Medical Mission',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 9:00am, 21th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 8777950819',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFfffffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('O-',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Type',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : S.M.F(Anna Nagar)',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 9:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 9781235019',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('O-',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Urgent',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : Apollo Clinic(Mogappair)',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 3',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 1:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 9001230019',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFFffffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('A+',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Urgent',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : Global Hospital',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 4:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 8790917819',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFFffffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('B+',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Type',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : Madras Medical Mission',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 9:00am, 21th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 8777950819',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFfffffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('O-',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Type',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : S.M.F(Anna Nagar)',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 9:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 9781235019',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('O-',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Urgent',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : Apollo Clinic(Mogappair)',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 3',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 1:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 9001230019',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFFffffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('A+',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Urgent',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : Global Hospital',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 4:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 8790917819',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFFffffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('B+',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Type',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : Madras Medical Mission',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 9:00am, 21th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 8777950819',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFfffffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('O-',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Type',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : S.M.F(Anna Nagar)',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 9:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 9781235019',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('O-',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Urgent',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : Apollo Clinic(Mogappair)',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 3',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 1:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 9001230019',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFFffffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('A+',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Urgent',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : Global Hospital',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 4:00pm, 20th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 8790917819',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                height:100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Color(0xFFffffff),Color(0xFFffffff), ],
-                        tileMode: TileMode.clamp
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Color.fromRGBO(49, 39, 79, 1),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ]
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top:30.0,right: 10,left: 25),
-                          child: Text('B+',style: TextStyle(fontSize: 22,color: Color(0xFFBC002D),fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                        ),
-                        Text('   Type',style: TextStyle(fontSize: 15,color: Colors.black,fontFamily: 'nunito'),),
-                      ],
-                    ),
-                    SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                    SizedBox(width: 5,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 15,),
-                        Text('Hospital Name : Madras Medical Mission',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Units Required : 2',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Deadline : 9:00am, 21th September ',style: TextStyle(fontFamily: 'nunito'),),
-                        Text('Contact Number : 8777950819',style: TextStyle(fontFamily: 'nunito'),),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 10,),
+      body: FutureBuilder(
+        // stream: dbRef.onValue,
+          future: _firbaseref.once(),
+          builder:
+              (context, AsyncSnapshot<DataSnapshot> snapshot) {
+            // builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              lists.clear();
+              Map<dynamic, dynamic> values = snapshot.data.value;
+              values.forEach((key, values) {
+                lists.add(values);
+              });
+              return new ListView.builder(
+                 shrinkWrap: true,
+                  itemCount: lists.length,
+                  // physics: ScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
 
-            ],
-          ),
-        ),
-      ),
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0,horizontal: 10),
+                            child: Container(
+                              height: 100,
+                              width: MediaQuery.of(context).size.width-20,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                  BorderRadius.circular(15),
+                                  border: Border.all(
+                                      color: kMainRed,
+                                      width: 1.2),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black
+                                          .withOpacity(0.1),
+                                      blurRadius: 8,
+                                      offset: Offset(0, 4),
+                                    )
+                                  ]),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    width: 75,
+                                    child: Column(
+                                      crossAxisAlignment:CrossAxisAlignment.center,
+                                      mainAxisAlignment:MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "  ${lists[index]["BloodType"].toString()}",
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              color: kMainRed,
+                                              fontWeight:
+                                              FontWeight.bold,
+                                              fontFamily:
+                                              'nunito'),
+                                        ),
+                                        Padding(
+                                          padding:
+                                          const EdgeInsets.only(
+                                              left: 5),
+                                          child: Text(
+                                            'Type',
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                color: Colors.black,
+                                                fontFamily:
+                                                'nunito'),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      height: 35,
+                                      child: VerticalDivider(
+                                        color: Colors.black,
+                                        thickness: 1,
+                                      )),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                    children: <Widget>[
+//                                     SizedBox(height: 12,),
+                                      Text(
+                                        'Hospital Name :  ${lists[index]["Hospital"].toString()}',
+                                        style: TextStyle(
+                                            fontSize: 12.5,
+                                            fontFamily: 'nunito',
+                                            color: Colors.black),
+                                      ),
+                                      Text(
+                                        'Units Required :  ${lists[index]["Units"].toString()}',
+                                        style: TextStyle(
+                                            fontSize: 12.5,
+                                            fontFamily: 'nunito',
+                                            color: Colors.black),
+                                      ),
+                                      Text(
+                                        'Deadline :  ${lists[index]["Deadline"].toString()}',
+                                        style: TextStyle(
+                                            fontSize: 12.5,
+                                            fontFamily: 'nunito',
+                                            color: Colors.black),
+                                      ),
+                                      Text(
+                                        'Contact Number :  ${lists[index]["ContactNumber"].toString()}',
+                                        style: TextStyle(
+                                            fontSize: 12.5,
+                                            fontFamily: 'nunito',
+                                            color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  });
+            }
+            return CircularProgressIndicator();
+          }),
     );
   }
 }
