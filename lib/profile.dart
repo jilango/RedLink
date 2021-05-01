@@ -8,6 +8,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'Donation_History.dart';
 
 var _firebaseref = FirebaseDatabase().reference().child('User');
 
@@ -111,7 +112,7 @@ class _ProfileState extends State<Profile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                             name,
+                             name!=null?name:"null",
                               style: GoogleFonts.montserrat(
                                   fontSize: 18,
                                   color: Colors.white,
@@ -148,7 +149,7 @@ class _ProfileState extends State<Profile> {
                             border: Border.all(color:Colors.white),
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
-                          child: Center(child: Text('$req Requests',style: GoogleFonts.montserrat(
+                          child: Center(child: Text('${req!=null?req:'null'} Requests',style: GoogleFonts.montserrat(
                               fontSize: 12,
                               color: Colors.white,
                               fontWeight: FontWeight.w500),)),
@@ -162,7 +163,7 @@ class _ProfileState extends State<Profile> {
                             border: Border.all(color:Colors.white),
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
-                          child: Center(child: Text('$donations Donations',style: GoogleFonts.montserrat(
+                          child: Center(child: Text('${donations!=null?donations:'null'} Donations',style: GoogleFonts.montserrat(
                               fontSize: 12,
                               color: Colors.white,
                               fontWeight: FontWeight.w500),)),
@@ -238,7 +239,7 @@ class _ProfileState extends State<Profile> {
                                               style: kLabelTextStyle,
                                             ),
                                             SizedBox(height: 3,),
-                                            Text(dob,
+                                            Text(dob!=null?dob:'null',
                                               style: kNumberTextStyle,
                                             ),
                                           ],
@@ -304,7 +305,7 @@ class _ProfileState extends State<Profile> {
                                               style: kLabelTextStyle,
                                             ),
                                             SizedBox(height: 3,),
-                                            Text(btype,
+                                            Text(btype!=null?btype:'null',
                                               style: kNumberTextStyle,
                                             ),
                                           ],
@@ -577,7 +578,7 @@ class _ProfileState extends State<Profile> {
                                         style: kLabelTextStyle,
                                       ),
                                       SizedBox(height: 3,),
-                                      Text(mc,
+                                      Text(mc!=null?mc:'null',
                                         style: kNumberTextStyle,
                                       ),
                                     ],
@@ -640,7 +641,7 @@ class _ProfileState extends State<Profile> {
                                         style: kLabelTextStyle,
                                       ),
                                       SizedBox(height: 3,),
-                                      Text('+91 $contact',
+                                      Text('+91 ${contact!=null?contact:'null'}contact',
                                         style: kNumberTextStyle,
                                       ),
                                     ],
@@ -650,7 +651,6 @@ class _ProfileState extends State<Profile> {
                               ],
                             ),
                             //SizedBox(height: 1,),
-
                           ],
                         ),
                       ),
@@ -660,65 +660,68 @@ class _ProfileState extends State<Profile> {
                   Padding(
                     padding: const EdgeInsets.only(
                         left: 25.0, right: 25, top: 20),
-                    child: Container(
-                      height: 65,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
-                              tileMode: TileMode.clamp
+                    child: GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return DonationHistory();
+                            },
                           ),
-                          borderRadius: BorderRadius.circular(15),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.15),
-                              blurRadius: 10,
-                              spreadRadius: 0,
-                              offset: Offset(0, 4),
-                            )
-                          ]
-                      ),
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                SizedBox(width: 15,),
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Icon(
-                                    Icons.history,
-                                    color: Color(0xFFBC002D),
-                                    size: 23,
-                                  ),
-                                ),
-                                Text(
-                                  '  Donation History',
-                                  style: kLabelTextStyle.copyWith(color: kMainRed,fontSize: 14),
-                                ),
-
-
-                              ],
+                        );
+                      },
+                      child: Container(
+                        height: 65,
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [Color(0xFFffffff),Color(0xFFFfffff), ],
+                                tileMode: TileMode.clamp
                             ),
-                            //SizedBox(height: 1,),
-
-                          ],
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.15),
+                                blurRadius: 10,
+                                spreadRadius: 0,
+                                offset: Offset(0, 4),
+                              )
+                            ]
                         ),
+                        child: Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  SizedBox(width: 15,),
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Icon(
+                                      Icons.history,
+                                      color: Color(0xFFBC002D),
+                                      size: 23,
+                                    ),
+                                  ),
+                                  Text(
+                                    '  Donation History',
+                                    style: kLabelTextStyle.copyWith(color: kMainRed,fontSize: 14),
+                                  ),
+
+
+                                ],
+                              ),
+                              //SizedBox(height: 1,),
+
+                            ],
+                          ),
+                        ),
+                        //curveType: CurveType.convex,
                       ),
-                      //curveType: CurveType.convex,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0, right: 16),
-                    child: SizedBox(
-                      height: 1.0,
-                      width: double.infinity,
-                      child: Divider(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
+
                   GestureDetector(
                     onTap: (){
                       Navigator.push(

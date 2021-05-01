@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   var _firbaseref = FirebaseDatabase().reference().child("Emergencies");
   List<Map<dynamic, dynamic>> lists = [];
 
-  void _showcontent() {
+  void _showcontent(String bloodType,String contactNumber,String unitsReq,String deadline,String hospitalName) {
     showDialog(
       context: context, barrierDismissible: false, // user must tap button!
 
@@ -42,16 +42,41 @@ class _HomePageState extends State<HomePage> {
           content: new SingleChildScrollView(
             child: new ListBody(
               children: [
-                Text('Hospital Name : ',style: TextStyle(fontFamily: 'nunito'),),
-                Text('Units Required : ',style: TextStyle(fontFamily: 'nunito'),),
-                Text('Deadline : ',style: TextStyle(fontFamily: 'nunito'),),
-                Text('Contact Number : ',style: TextStyle(fontFamily: 'nunito'),),
+                Text('Hospital Name : '+hospitalName,style: TextStyle(fontFamily: 'nunito'),),
+                Text('Units Required : '+unitsReq,style: TextStyle(fontFamily: 'nunito'),),
+                Text('Deadline : '+deadline,style: TextStyle(fontFamily: 'nunito'),),
+                Text('Contact Number : '+contactNumber,style: TextStyle(fontFamily: 'nunito'),),
+                Text('Would you like to confirm your availability? ',style: TextStyle(fontFamily: 'nunito'),),
               ],
             ),
           ),
           actions: [
             new FlatButton(
               child: new Text('confirm',style:TextStyle(color: Colors.red) ,),
+              onPressed: () {
+                setState(() {
+                  Navigator.of(context).pop();
+                  f=1;
+                });
+                FirebaseDatabase.instance.reference().child('User/${loggedInUser.uid}/MyDonations/').push().set({
+                  "BloodType": bloodType,
+                  "Units": unitsReq,
+                  "Deadline": deadline,
+                  "Hospital": hospitalName,
+                  "ContactNumber": contactNumber,
+                }).then((_) {
+                  Scaffold.of(context).showSnackBar(
+                      SnackBar(content: Text('Your Request posted')));
+                  // ageController.clear();
+                  // nameController.clear();
+                }).catchError((onError) {
+                  Scaffold.of(context)
+                      .showSnackBar(SnackBar(content: Text(onError)));
+                });
+              },
+            ),
+            new FlatButton(
+              child: new Text('cancel',style:TextStyle(color: Colors.red) ,),
               onPressed: () {
                 setState(() {
                   Navigator.of(context).pop();
@@ -424,126 +449,229 @@ class _HomePageState extends State<HomePage> {
                  ),
                  SizedBox(height: 10,),
                  Container(
-                   height: 110,
+                   height: 120,
                    width: 450,
-                   child: ListView(
-                     scrollDirection: Axis.horizontal,
-                     children: [
-                       GestureDetector(
-                         onTap: (){
-                           setState(() {
-//                             _showcontent();
+                   child: FutureBuilder(
+                     // stream: dbRef.onValue,
+                       future: FirebaseDatabase().reference().child("User/${loggedInUser.uid}/MyDonations").once(),
+                       builder: (context, AsyncSnapshot<DataSnapshot> snapshot) {
+                         if (snapshot.hasData) {
+                           if (snapshot.data != null) {
+                             lists.clear();
+                             Map<dynamic, dynamic> values = snapshot.data.value;
+                             values.forEach((key, values) {
+                               lists.add(values);
+                             });
+                            // count1 = lists.length;
+                             return new ListView.builder(
+                               // shrinkWrap: true,
+                                 itemCount: lists.length,
+                                 // physics: ScrollPhysics(),
+                                 scrollDirection: Axis.horizontal,
+                                 itemBuilder:
+                                     (BuildContext context, int index) {
+                                   return Row(
+                                     children: [
+                                       Padding(
+                                         padding: const EdgeInsets.symmetric(
+                                           vertical: 8.0,
+                                         ),
+                                         child: Container(
+                                           height: 109,
+                                           width: MediaQuery.of(context)
+                                               .size
+                                               .width -
+                                               20,
+                                           decoration: BoxDecoration(
+                                               color: Colors.white,
+                                               borderRadius:
+                                               BorderRadius.circular(15),
+                                               border: Border.all(
+                                                   color: kMainRed,
+                                                   width: 1.2),
+                                               boxShadow: [
+                                                 BoxShadow(
+                                                   color: Colors.black
+                                                       .withOpacity(0.1),
+                                                   blurRadius: 8,
+                                                   offset: Offset(0, 4),
+                                                 )
+                                               ]),
+                                           child: Row(
+                                             children: <Widget>[
+                                               Container(
+                                                 width: 75,
+                                                 child: Column(
+                                                   crossAxisAlignment:
+                                                   CrossAxisAlignment
+                                                       .center,
+                                                   mainAxisAlignment:
+                                                   MainAxisAlignment
+                                                       .center,
+                                                   children: <Widget>[
+                                                     SizedBox(height:1),
+                                                     Text(
+                                                       "  ${lists[index]["BloodType"].toString()}",
+                                                       style: TextStyle(
+                                                           fontSize: 22,
+                                                           color: kMainRed,
+                                                           fontWeight:
+                                                           FontWeight
+                                                               .bold,
+                                                           fontFamily:
+                                                           'nunito'),
+                                                     ),
+                                                     Padding(
+                                                       padding:
+                                                       const EdgeInsets
+                                                           .only(
+                                                           left: 5),
+                                                       child: Text(
+                                                         'Type',
+                                                         style: TextStyle(
+                                                             fontSize: 13,
+                                                             color: Colors
+                                                                 .black,
+                                                             fontFamily:
+                                                             'nunito'),
+                                                       ),
+                                                     ),
+                                                   ],
+                                                 ),
+                                               ),
+                                               SizedBox(
+                                                   height: 35,
+                                                   child: VerticalDivider(
+                                                     color: Colors.black,
+                                                     thickness: 1,
+                                                   )),
+                                               SizedBox(
+                                                 width: 5,
+                                               ),
+                                               Column(
+                                                 crossAxisAlignment:
+                                                 CrossAxisAlignment
+                                                     .start,
+                                                 mainAxisAlignment:
+                                                 MainAxisAlignment
+                                                     .center,
+                                                 children: <Widget>[
+                                                   Text(
+                                                     'Hospital Name :  ${lists[index]["Hospital"].toString()}',
+                                                     style: TextStyle(
+                                                         fontSize: 12.5,
+                                                         fontFamily:
+                                                         'nunito',
+                                                         color:
+                                                         Colors.black),
+                                                   ),
+                                                   Text(
+                                                     'Units Required :  ${lists[index]["Units"].toString()}',
+                                                     style: TextStyle(
+                                                         fontSize: 12.5,
+                                                         fontFamily:
+                                                         'nunito',
+                                                         color:
+                                                         Colors.black),
+                                                   ),
+                                                   Text(
+                                                     'Deadline :  ${lists[index]["Deadline"].toString()}',
+                                                     style: TextStyle(
+                                                         fontSize: 12.5,
+                                                         fontFamily:
+                                                         'nunito',
+                                                         color:
+                                                         Colors.black),
+                                                   ),
+                                                   Text(
+                                                     'Contact Number :  ${lists[index]["ContactNumber"].toString()}',
+                                                     style: TextStyle(
+                                                         fontSize: 12.5,
+                                                         fontFamily:
+                                                         'nunito',
+                                                         color:
+                                                         Colors.black),
+                                                   ),
+                                                   SizedBox(height:2),
+                                                   Container(
+                                                     alignment: Alignment.centerRight,
+                                                     width: MediaQuery.of(context).size.width-140,
+                                                     child: GestureDetector(
+                                                       onTap: (){
+                                                         setState(() {
 
-                           });
-                         },
-                         child: Padding(
-                           padding: const EdgeInsets.symmetric(vertical:8.0),
-                           child: Container(
-                             height:100,
-                             width: 320,
-                             decoration: BoxDecoration(
-                                 color: Colors.white,
-                                 borderRadius: BorderRadius.circular(15),
-                                 border: Border.all(color: kMainRed,width: 1.2),
-                                 boxShadow: [
-                                   BoxShadow(
-                                     color: Colors.black.withOpacity(0.1),
-                                     blurRadius: 8,
-                                     offset: Offset(0, 4),
-                                   )
-                                 ]
-                             ),
-                             child: Row(
-                               children: <Widget>[
-                                 Column(
-                                   children: <Widget>[
-                                     Padding(
-                                       padding: const EdgeInsets.only(top:20.0,right: 10,left: 25),
-                                       child: Text('O-',style: TextStyle(fontSize: 22,color: kMainRed,fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                                     ),
-                                     Padding(
-                                       padding: const EdgeInsets.only(left: 5),
-                                       child: Text(getText(),style: TextStyle(fontSize: 13 ,color: Colors.black,fontFamily: 'nunito'),),
-                                     ),
-                                   ],
-                                 ),
-                                 SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                                 SizedBox(width: 5,),
-                                 Column(
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   mainAxisAlignment: MainAxisAlignment.center,
-                                   children: <Widget>[
-//                                     SizedBox(height: 12,),
-                                     Text('Hospital Name : Apollo(Anna Nagar)',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
-                                     Text('Units Required : 3',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
-                                     Text('Deadline : 1:00pm, 20th September ',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color:Colors.black),),
-                                     Text('Contact Number : 9001230019',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
-                                   ],
-                                 ),
-                               ],
-                             ),
-                           ),
-                         ),
-                       ),
-                       SizedBox(width: 15,),
-                       GestureDetector(
-                         onTap: (){
-                           setState(() {
-//                             _showcontent();
+                                                           FirebaseDatabase.instance.reference().child('User/${loggedInUser.uid}/MyDonations/$index')
+                                                               .remove()
+                                                               .then((_) {
+                                                             Scaffold.of(context).showSnackBar(
+                                                                 SnackBar(content: Text('Canceled Successfully')));
+                                                           }).catchError((onError) {
+                                                             Scaffold.of(context)
+                                                                 .showSnackBar(SnackBar(content: Text(onError)));
+                                                           });
 
-                           });
-                         },
-                         child: Padding(
-                           padding: const EdgeInsets.symmetric(vertical:8.0),
-                           child: Container(
-                             height:100,
-                             width: 320,
-                             decoration: BoxDecoration(
-                                 color: Colors.white,
-                                 borderRadius: BorderRadius.circular(15),
-                                 border: Border.all(color: kMainRed,width: 1.2),
-                                 boxShadow: [
-                                   BoxShadow(
-                                     color: Colors.black.withOpacity(0.1),
-                                     blurRadius: 8,
-                                     offset: Offset(0, 4),
-                                   )
-                                 ]
-                             ),
-                             child: Row(
-                               children: <Widget>[
-                                 Column(
-                                   children: <Widget>[
-                                     Padding(
-                                       padding: const EdgeInsets.only(top:20.0,right: 10,left: 25),
-                                       child: Text('O-',style: TextStyle(fontSize: 22,color: kMainRed,fontWeight:FontWeight.bold,fontFamily: 'nunito'),),
-                                     ),
-                                     Padding(
-                                       padding: const EdgeInsets.only(left: 5),
-                                       child: Text(getText(),style: TextStyle(fontSize: 13 ,color: Colors.black,fontFamily: 'nunito'),),
-                                     ),
-                                   ],
-                                 ),
-                                 SizedBox(height: 35, child: VerticalDivider(color: Colors.black,thickness: 1,)),
-                                 SizedBox(width: 5,),
-                                 Column(
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   mainAxisAlignment: MainAxisAlignment.center,
-                                   children: <Widget>[
-//                                     SizedBox(height: 12,),
-                                     Text('Hospital Name : Apollo(Anna Nagar)',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
-                                     Text('Units Required : 3',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
-                                     Text('Deadline : 1:00pm, 20th September ',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color:Colors.black),),
-                                     Text('Contact Number : 9001230019',style: TextStyle(fontSize:12.5,fontFamily: 'nunito',color: Colors.black),),
-                                   ],
-                                 ),
-                               ],
-                             ),
-                           ),
-                         ),
+
+//                                                           FirebaseDatabase.instance.reference()
+//                                                               .child('User/${loggedInUser.uid}/MyDonations')
+//                                                               .equalTo('${lists[index]}')
+//                                                               .once()
+//                                                               .then(
+//                                                                   (DataSnapshot snapshot) {
+//                                                                 Map<dynamic, dynamic> children =
+//                                                                     snapshot.value;
+//                                                                 children.forEach((key, value) {
+//                                                                   FirebaseDatabase.instance.reference()
+//                                                                       .child('User/${loggedInUser.uid}/MyDonations')
+//                                                                       .child(key)
+//                                                                       .remove().then((_) {
+//                                                                     Scaffold.of(context).showSnackBar(
+//                                                                         SnackBar(content: Text('Canceled Successfully')));
+//                                                                   }).catchError((onError) {
+//                                                                     Scaffold.of(context)
+//                                                                         .showSnackBar(SnackBar(content: Text(onError)));
+//                                                                   });
+//
+//
+//                                                                 });
+//                                                               });
+//
+
+
+                                                         });
+
+                                                       },
+                                                       child: Text(
+                                                         'Cancel Availability',
+                                                         style: TextStyle(
+                                                             fontWeight: FontWeight.w700,
+                                                             fontSize: 11,
+                                                             fontFamily: 'nunito',
+                                                             color: kMainRed),
+                                                       ),
+                                                     ),
+                                                   ),
+                                                 ],
+                                               ),
+                                             ],
+                                           ),
+                                         ),
+                                       ),
+                                       SizedBox(
+                                         width: 15,
+                                       )
+                                     ],
+                                   );
+                                 });
+                           }
+                         }
+                         else {
+                           return Container(
+                             child: Text("Nothing to Show"),
+                           );
+                         }
+                          return CircularProgressIndicator();
+                       }
                        ),
-                     ],
-                   ),
                  ),
                  SizedBox(height: 30,),
                  Row(
@@ -568,7 +696,7 @@ class _HomePageState extends State<HomePage> {
                  Container(
                    height: 110,
                    width: 450,
-                   child:FutureBuilder(
+                   child: FutureBuilder(
                      // stream: dbRef.onValue,
                        future: _firbaseref.once(),
                        builder:
@@ -580,28 +708,38 @@ class _HomePageState extends State<HomePage> {
                            values.forEach((key, values) {
                              lists.add(values);
                            });
-                             count1=lists.length;
+                           count1 = lists.length;
+
                            return new ListView.builder(
                              // shrinkWrap: true,
                                itemCount: 3,
                                // physics: ScrollPhysics(),
                                scrollDirection: Axis.horizontal,
                                itemBuilder: (BuildContext context, int index) {
+                                 String bt=lists[index]["BloodType"].toString();
+                                 String hp=lists[index]["Hospital"].toString();
+                                 String dl=lists[index]["Deadline"].toString();
+                                 String ut=lists[index]["Units"].toString();
+                                 String cn=lists[index]["ContactNumber"].toString();
 
                                  return Row(
                                    children: [
                                      GestureDetector(
                                        onTap: () {
                                          setState(() {
-                                           _showcontent();
+                                           _showcontent(bt,cn,ut,dl,hp);
                                          });
                                        },
-                                       child:  Padding(
+                                       child: Padding(
                                          padding: const EdgeInsets.symmetric(
-                                             vertical: 8.0,),
+                                           vertical: 8.0,
+                                         ),
                                          child: Container(
                                            height: 100,
-                                           width: MediaQuery.of(context).size.width-20,
+                                           width: MediaQuery.of(context)
+                                               .size
+                                               .width -
+                                               20,
                                            decoration: BoxDecoration(
                                                color: Colors.white,
                                                borderRadius:
@@ -622,8 +760,12 @@ class _HomePageState extends State<HomePage> {
                                                Container(
                                                  width: 75,
                                                  child: Column(
-                                                   crossAxisAlignment:CrossAxisAlignment.center,
-                                                   mainAxisAlignment:MainAxisAlignment.center,
+                                                   crossAxisAlignment:
+                                                   CrossAxisAlignment
+                                                       .center,
+                                                   mainAxisAlignment:
+                                                   MainAxisAlignment
+                                                       .center,
                                                    children: <Widget>[
                                                      Text(
                                                        "  ${lists[index]["BloodType"].toString()}",
@@ -637,13 +779,14 @@ class _HomePageState extends State<HomePage> {
                                                      ),
                                                      Padding(
                                                        padding:
-                                                       const EdgeInsets.only(
-                                                           left: 5),
+                                                       const EdgeInsets
+                                                           .only(left: 5),
                                                        child: Text(
                                                          'Type',
                                                          style: TextStyle(
                                                              fontSize: 13,
-                                                             color: Colors.black,
+                                                             color:
+                                                             Colors.black,
                                                              fontFamily:
                                                              'nunito'),
                                                        ),
@@ -666,7 +809,6 @@ class _HomePageState extends State<HomePage> {
                                                  mainAxisAlignment:
                                                  MainAxisAlignment.center,
                                                  children: <Widget>[
-//                                     SizedBox(height: 12,),
                                                    Text(
                                                      'Hospital Name :  ${lists[index]["Hospital"].toString()}',
                                                      style: TextStyle(
@@ -708,6 +850,10 @@ class _HomePageState extends State<HomePage> {
                                    ],
                                  );
                                });
+                         } else {
+                           return Container(
+                             child: Center(child: Text("Nothing To Show")),
+                           );
                          }
                          return CircularProgressIndicator();
                        }),

@@ -3,12 +3,12 @@ import 'Colors.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class MyRequests extends StatefulWidget {
+class DonationHistory extends StatefulWidget {
   @override
-  _MyRequestsState createState() => _MyRequestsState();
+  _DonationHistoryState createState() => _DonationHistoryState();
 }
 
-class _MyRequestsState extends State<MyRequests> {
+class _DonationHistoryState extends State<DonationHistory> {
   final _auth = FirebaseAuth.instance;
   User user;
 
@@ -46,7 +46,7 @@ class _MyRequestsState extends State<MyRequests> {
       ),
       body: FutureBuilder(
         // stream: dbRef.onValue,
-          future:FirebaseDatabase().reference().child("User/${user.uid}/MyRequests").once(),
+          future:FirebaseDatabase().reference().child("User/${user.uid}/MyDonations").once(),
           builder:
               (context, AsyncSnapshot<DataSnapshot> snapshot) {
             // builder: (context, snapshot) {
@@ -57,7 +57,7 @@ class _MyRequestsState extends State<MyRequests> {
                 lists.add(values);
               });
               FirebaseDatabase.instance.reference().child('User/${user.uid}').update({
-                "Requests": lists.length,
+                "Donations": lists.length,
               });
               return new ListView.builder(
                   shrinkWrap: true,
@@ -213,9 +213,9 @@ class _MyRequestsState extends State<MyRequests> {
                   });
             }
             else
-            {
-              return Container(child: Text('Nothing to show'),);
-            }
+              {
+                return Container(child: Text('Nothing to show'),);
+              }
             return CircularProgressIndicator();
           }),
     );
