@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:redlink/compatability.dart';
 import 'package:redlink/home_page.dart';
 import 'constants.dart';
+import 'page_guide.dart';
 import 'package:redlink/Colors.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -30,6 +31,7 @@ class _ProfileState extends State<Profile> {
   int age = 20;
   int weight = 58;
   String name;
+  bool showSpinner = false;
 
   final _auth = FirebaseAuth.instance;
   User loggedInUser;
@@ -51,7 +53,7 @@ class _ProfileState extends State<Profile> {
       setState(() {});
     });
 
-
+    showSpinner = false;
   }
 
   @override
@@ -112,7 +114,7 @@ class _ProfileState extends State<Profile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                             name!=null?name:"null",
+                             name!=null?name:"--",
                               style: GoogleFonts.montserrat(
                                   fontSize: 18,
                                   color: Colors.white,
@@ -132,6 +134,7 @@ class _ProfileState extends State<Profile> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: RoundIconButton(icon: Icons.mode_edit, onPressed: (){
+                            displayOverlay(context);
                             //EDIT PROFILE
                           }),
                         )
@@ -149,7 +152,7 @@ class _ProfileState extends State<Profile> {
                             border: Border.all(color:Colors.white),
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
-                          child: Center(child: Text('${req!=null?req:'null'} Requests',style: GoogleFonts.montserrat(
+                          child: Center(child: Text('${req!='null'?req:'0'} Requests',style: GoogleFonts.montserrat(
                               fontSize: 12,
                               color: Colors.white,
                               fontWeight: FontWeight.w500),)),
@@ -163,7 +166,7 @@ class _ProfileState extends State<Profile> {
                             border: Border.all(color:Colors.white),
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
-                          child: Center(child: Text('${donations!=null?donations:'null'} Donations',style: GoogleFonts.montserrat(
+                          child: Center(child: Text('${donations!='null'?donations:'0'} Donations',style: GoogleFonts.montserrat(
                               fontSize: 12,
                               color: Colors.white,
                               fontWeight: FontWeight.w500),)),
@@ -239,7 +242,7 @@ class _ProfileState extends State<Profile> {
                                               style: kLabelTextStyle,
                                             ),
                                             SizedBox(height: 3,),
-                                            Text(dob!=null?dob:'null',
+                                            Text(dob!='null'?dob:'--',
                                               style: kNumberTextStyle,
                                             ),
                                           ],
@@ -305,7 +308,7 @@ class _ProfileState extends State<Profile> {
                                               style: kLabelTextStyle,
                                             ),
                                             SizedBox(height: 3,),
-                                            Text(btype!=null?btype:'null',
+                                            Text(btype!='null'?btype:'--',
                                               style: kNumberTextStyle,
                                             ),
                                           ],
@@ -578,7 +581,7 @@ class _ProfileState extends State<Profile> {
                                         style: kLabelTextStyle,
                                       ),
                                       SizedBox(height: 3,),
-                                      Text(mc!=null?mc:'null',
+                                      Text(mc!='null'?mc:'--',
                                         style: kNumberTextStyle,
                                       ),
                                     ],
@@ -641,7 +644,7 @@ class _ProfileState extends State<Profile> {
                                         style: kLabelTextStyle,
                                       ),
                                       SizedBox(height: 3,),
-                                      Text('+91 ${contact!=null?contact:'null'}contact',
+                                      Text('${contact!=null?contact:'--'}',
                                         style: kNumberTextStyle,
                                       ),
                                     ],
@@ -774,14 +777,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   GestureDetector(
                     onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return CompatabilityPage();
-                          },
-                        ),
-                      );
+                      _auth.signOut();
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left:25.0,right: 25.0,top: 0,bottom: 10),
@@ -796,16 +792,14 @@ class _ProfileState extends State<Profile> {
                           //mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(height: 16,),
-                            Center(
-                              child: Text(
-                                'Logout',
-                                style: TextStyle(fontSize: 17,fontFamily: 'nunito',fontWeight: FontWeight.bold,color: kMainRed),
+                               Center(
+                                child: Text(
+                                  'Logout',
+                                  style: TextStyle(fontSize: 17,fontFamily: 'nunito',fontWeight: FontWeight.bold,color: kMainRed),
 
+                                ),
                               ),
-                            ),
-
                             //SizedBox(height: 1,),
-
                           ],
                         ),
                         //curveType: CurveType.convex,
@@ -819,6 +813,310 @@ class _ProfileState extends State<Profile> {
         ),
       ),
     ));
+  }
+
+
+
+
+
+
+  displayOverlay(BuildContext context) {
+    String name;
+    String dob;
+    String btype;
+    String mc;
+    String phone;
+
+
+    return showDialog(
+      context: context,
+      builder: (context) {
+        Size mq = MediaQuery.of(context).size;
+        return AlertDialog(
+          shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          content: Container(
+            height: mq.height * 0.67,
+            width: mq.width * 0.8,
+            child: ListView(children: [
+              Column(
+                children: [
+                  Text(
+                    'Edit Profile',
+                    style: GoogleFonts.montserrat(color: Colors.black,fontWeight: FontWeight.w500),
+                  ),
+                  Divider(
+                    thickness: 2,
+                    indent: 80,
+                    endIndent: 80,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Full Name',
+                    style: GoogleFonts.montserrat(color: Colors.black,fontSize: 14),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      height: 40,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          setState(() {
+                            name = value;
+                          });
+                        },
+                        cursorColor: Colors.white,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                          fillColor: kGrey.withOpacity(0.2),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Date of Birth',
+                    style: GoogleFonts.montserrat(color: Colors.black,fontSize: 14),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      height: 40,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          setState(() {
+                            dob = value;
+                          });
+                        },
+                        cursorColor: Colors.white,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                          fillColor: kGrey.withOpacity(0.2),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Blood Type',
+                    style: GoogleFonts.montserrat(color: Colors.black,fontSize: 14),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      height: 40,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          setState(() {
+                            btype = value;
+                          });
+                        },
+                        cursorColor: Colors.white,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                          fillColor: kGrey.withOpacity(0.2),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Contact Number',
+                    style: GoogleFonts.montserrat(color: Colors.black,fontSize: 14),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      height: 40,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          setState(() {
+                            phone = value;
+                          });
+                        },
+                        cursorColor: Colors.white,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                          fillColor: kGrey.withOpacity(0.2),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Medical Condition',
+                    style: GoogleFonts.montserrat(color: Colors.black,fontSize: 14),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      height: 40,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          setState(() {
+                           mc = value;
+                          });
+                        },
+                        cursorColor: Colors.white,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                          fillColor: kGrey.withOpacity(0.2),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: kMainRed,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: MaterialButton(
+                      onPressed: () {
+
+
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+
+                              try {
+                                  FirebaseDatabase.instance.reference().child('User/${loggedInUser.uid}').set({
+                                    "Name": name,
+                                    "BloodType": btype,
+                                    "Dob": dob,
+                                    "MedCondition": mc,
+                                    "Phone":phone,
+                                  }).then((value) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return PageGuide();
+                                        },
+                                      ),
+                                    );
+                                  });
+//                                loggedInUser
+//                                    .updateProfile(displayName: name)
+//                                    .then((value) {
+//                                });
+                              } catch (e) {
+                                print(e);
+                              }
+                              return Center(child: CircularProgressIndicator());
+                            });
+                      },
+                      child: Text(
+                        'Save Changes',
+                        style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ]),
+          ),
+        );
+      },
+    );
   }
 }
 class RoundIconButton extends StatelessWidget {

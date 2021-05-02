@@ -14,7 +14,7 @@ class PageGuide extends StatefulWidget {
 }
 
 class _PageGuideState extends State<PageGuide> {
-  int pageIndex = 1;
+  int index=1;
 
   final HomePage _listHomePage=HomePage();
   final Profile _listProfilePage=new Profile();
@@ -46,7 +46,7 @@ class _PageGuideState extends State<PageGuide> {
     return Scaffold(
       backgroundColor: Color(0xffffffff),
       bottomNavigationBar: CurvedNavigationBar(
-        index: pageIndex,
+        index: index,
         backgroundColor: Colors.white,
         color:kMainRed,
         buttonBackgroundColor: kMainRed,
