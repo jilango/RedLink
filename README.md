@@ -1,6 +1,4 @@
-# redlink
-
-A new Flutter application.
+# RedLink
 
 ## Getting Started
 
